@@ -33,6 +33,7 @@ function App() {
         <View
           round={round}
           startingCreds={credits}
+          startingItems={items}
           loseNext={loseNext}
           winNext={winNext}
         />

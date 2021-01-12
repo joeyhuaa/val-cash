@@ -37,11 +37,13 @@ let killSounds = [kill_1, kill_2, kill_3, kill_4, ace]
 export default function View({
   round,
   startingCreds,
+  startingItems,
   loseNext,
   winNext,
 }) {
   let [kills, setKills] = useState(0);
   let [creds, setCreds] = useState(startingCreds)
+  let [items, setItems] = useState(startingItems)
   let [killSound, setKillSound] = useState(kill_1)
   let killSoundPlayer = useRef(null)
 
@@ -70,15 +72,24 @@ export default function View({
     setCreds(creds-200)
   }
 
-  let onBuy = (item) => {
+  let onTransact = (item) => {
     let name = item[0]
     let price = item[1]
-    if (creds >= price) {
-      setCreds(creds-price)
-      return 1
+    if (!items.includes(name)) {
+      if (creds >= price) {
+        setCreds(creds-price)
+        setItems([...items, name])
+        return 1
+      } else {
+        alert("You need more credits!")
+        return 0
+      }
     } else {
-      alert("You need more credits!")
-      return 0
+      setCreds(creds+price)
+      let newItems = items
+      let i = items.indexOf(name)
+      newItems.splice(i,1)
+      setItems(newItems)
     }
   }
 
@@ -110,9 +121,9 @@ export default function View({
       <div style={{marginTop:'50px'}}>
         <h3>Buy:</h3>
         <BuyMenu
-          onBuy={onBuy}
+          onTransact={onTransact}
         />
-        <div style={{display:'flex', justifyContent:'space-between'}}>
+        <div style={{display:'flex', justifyContent:'space-between', marginTop:'30px'}}>
           <Button variant="danger" className="button" onClick={() => loseNext(creds)}>Lose this round</Button>
           <Button variant="info" className="button" onClick={() => winNext(creds)}>Win this round</Button>
         </div>

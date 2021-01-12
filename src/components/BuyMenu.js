@@ -21,16 +21,17 @@ let menu = {
   heavy_armor:1000
 }
 
-function MenuItem({className, name, price, onBuy}) {
+function MenuItem({className, name, price, onTransact}) {
   let [selected, setSelected] = useState(false)
 
   return (
     <div className={selected ? className + `-selected` : className} onClick={() => {
       if (!selected) {
-        let buySuccess = onBuy()
+        let buySuccess = onTransact()
         setSelected(buySuccess ? !selected : selected)
       } else {
-        setSelected()
+        onTransact()
+        setSelected(false)
       }
     }}>
       <span>{name}</span>
@@ -40,7 +41,7 @@ function MenuItem({className, name, price, onBuy}) {
 }
 
 export default function BuyMenu({
-  onBuy
+  onTransact
 }) {
   return (
     <div style={{
@@ -52,7 +53,7 @@ export default function BuyMenu({
           className={'buy-item'}
           name={item[0]}
           price={item[1]}
-          onBuy={() => onBuy(item)}
+          onTransact={() => onTransact(item)}
         />
       )}
     </div>

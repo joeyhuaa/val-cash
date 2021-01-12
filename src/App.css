@@ -49,9 +49,10 @@ body{
   flex-basis: 16.66%;
   font-size:14px;
 }
-.buy-item:hover{
+.buy-item:hover, .buy-item-selected:hover{
   cursor: pointer;
   background-color: rgb(226, 180, 119);
+  color:black;
 }
 .buy-item-selected{
   background-color: aquamarine;
