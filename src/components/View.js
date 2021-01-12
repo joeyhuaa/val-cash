@@ -101,7 +101,7 @@ export default function View({
 
       <h1 className='title'>Round {round}</h1>
       <h2 className='subtitle'>You have {creds} credits to spend.</h2>
-      <div style={{display:'flex', position:'relative', marginTop:'50px'}}>
+      <div className='kill-section'>
         <h3 className='sec-title'>Your kills:</h3>
         {Array(kills).fill('kill').map((_,i) => 
           <img 
@@ -118,7 +118,7 @@ export default function View({
       </div>
       {kills < 5 && <Button className="button" onClick={addKill} style={{marginRight:'10px'}}>Add Kill</Button>}
       {kills > 0 && <Button className="button" onClick={removeKill}>Remove Kill</Button>}
-      <div style={{marginTop:'50px'}}>
+      <div className='buy-section'>
         <h3 className='sec-title'>Buy:</h3>
         <BuyMenu
           onTransact={onTransact}

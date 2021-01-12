@@ -36,6 +36,16 @@ body{
   background-color: rgba(0,0,0, 0.65);
 }
 
+.kill-section{
+  display: flex;
+  position: relative;
+  margin-top: 50px;
+}
+
+.buy-section{
+  margin-top: 50px;
+}
+
 .button{
   font-family:Valorant;
 }
@@ -61,6 +71,27 @@ body{
 
 #kill-sound-player{
   display:none;
+}
+
+@media (max-width: 1400px) {
+  #main-body{
+    padding-top: 3%;
+  }
+  .title{
+    font-size: 25px;
+  }
+  .subtitle{
+    font-size: 20px;
+  }
+  .sec-title{
+    font-size: 15px;
+  }
+  .kill-section, .buy-section{
+    margin-top: 25px;
+  }
+  .buy-item, .buy-item-selected{
+    font-size: 12px;
+  }
 }
 
 @media (max-width: 1000px) {
