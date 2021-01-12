@@ -6,7 +6,8 @@ function App() {
   let [round, setRound] = useState(1)
   let [credits, setCredits] = useState(800)
   let [lossStreak, setLossStreak] = useState(0)
-  let [items, setItems] = useState(['classic'])
+  // let [items, setItems] = useState(['classic'])
+  let items = ['classic']
 
   let loseNext = (prevCreds) => {
     setRound(round+1)
