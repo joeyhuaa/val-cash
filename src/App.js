@@ -1,23 +1,42 @@
-import logo from './logo.svg';
 import './App.css';
+import React,{useState} from 'react'
+import View from "./components/View"
 
 function App() {
+  let [round, setRound] = useState(1)
+  let [credits, setCredits] = useState(800)
+  let [lossStreak, setLossStreak] = useState(0)
+  let [items, setItems] = useState(['classic'])
+
+  let loseNext = (prevCreds) => {
+    setRound(round+1)
+    if (lossStreak === 0) {
+      setCredits(prevCreds+1900)
+    } else if (lossStreak === 1) {
+      setCredits(prevCreds+2400)
+    } else if (lossStreak >= 2) {
+      setCredits(prevCreds+2900)
+    }
+    setLossStreak(lossStreak+1)
+  }
+
+  let winNext = (prevCreds) => {
+    setRound(round+1)
+    setCredits(prevCreds+3000)
+    setLossStreak(0)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div id="bg-image"></div>
+      <div id="main-body">
+        <View
+          round={round}
+          startingCreds={credits}
+          loseNext={loseNext}
+          winNext={winNext}
+        />
+      </div>
     </div>
   );
 }
