@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 
 let menu = {
   shorty:200,
@@ -21,8 +21,12 @@ let menu = {
   heavy_armor:1000
 }
 
-function MenuItem({className, name, price, onTransact}) {
-  let [selected, setSelected] = useState(false)
+function MenuItem({className, name, price, onTransact, isSelected}) {
+  let [selected, setSelected] = useState(isSelected)
+
+  useEffect(() => {
+    setSelected(isSelected)
+  }, [isSelected])
 
   return (
     <div className={selected ? className + `-selected` : className} onClick={() => {
@@ -41,7 +45,8 @@ function MenuItem({className, name, price, onTransact}) {
 }
 
 export default function BuyMenu({
-  onTransact
+  onTransact,
+  playerItems
 }) {
   return (
     <div style={{
@@ -54,6 +59,7 @@ export default function BuyMenu({
           name={item[0]}
           price={item[1]}
           onTransact={() => onTransact(item)}
+          isSelected={playerItems.includes(item[0])}
         />
       )}
     </div>
