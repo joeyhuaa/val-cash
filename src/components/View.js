@@ -9,6 +9,7 @@ import kill_2 from '../assets/2ndkill.mp3'
 import kill_3 from '../assets/3rdkill.mp3'
 import kill_4 from '../assets/4thkill.mp3'
 import ace from '../assets/ace.mp3'
+import victorySound from '../assets/Valorant Sounds/Voice Lines/Announcer/victory.mp3'
 import kill_icon from '../assets/kill-icon.png'
 
 let killSounds = [kill_1, kill_2, kill_3, kill_4, ace]
@@ -19,16 +20,14 @@ export default function View({
   playerItems,
   loseNext,
   winNext,
-  onTransact
+  onTransact,
+  updateCreds
 }) {
   let [kills, setKills] = useState(0);
-  let [creds, setCreds] = useState(playerCreds)
   let [killSound, setKillSound] = useState(kill_1)
-  let killSoundPlayer = useRef(null)
 
-  useEffect(() => {
-    setCreds(playerCreds)
-  }, [playerCreds])
+  let killSoundPlayer = useRef(null)
+  let victoryPlayer = useRef(null)
 
   useEffect(() => {
     setKillSound(killSounds[kills])
@@ -43,12 +42,12 @@ export default function View({
     killSoundPlayer.current.load()
     killSoundPlayer.current.play()
     setKills(kills+1)
-    setCreds(creds+200)
+    updateCreds(playerCreds+200)
   }
 
   let removeKill = () => {
     setKills(kills-1)
-    setCreds(creds-200)
+    updateCreds(playerCreds-200)
   }
 
   return (
@@ -57,8 +56,12 @@ export default function View({
         <source src={killSound} type='audio/mpeg' />
       </audio>
 
+      <audio id='victory-player' ref={victoryPlayer}>
+        <source src={victorySound} type='audio/mpeg' />
+      </audio>
+
       <h1 className='title'>Round {round}</h1>
-      <h2 className='subtitle'>You have {creds} credits to spend.</h2>
+      <h2 className='subtitle'>You have {playerCreds} credits to spend.</h2>
       <div className='kill-section'>
         <h3 className='sec-title'>Your kills:</h3>
         {Array(kills).fill('kill').map((_,i) => 
@@ -74,7 +77,9 @@ export default function View({
           />
         )}
       </div>
-      {kills < 5 && <Button className="button" onClick={addKill} style={{marginRight:'10px'}}>Add Kill</Button>}
+      {kills < 5 && 
+        <Button className="button" onClick={addKill} style={{marginRight:'10px'}}>Add Kill</Button>
+      }
       {kills > 0 && <Button className="button" onClick={removeKill}>Remove Kill</Button>}
       <div className='buy-section'>
         <h3 className='sec-title'>Buy:</h3>
@@ -83,8 +88,20 @@ export default function View({
           playerItems={playerItems}
         />
         <div style={{display:'flex', justifyContent:'space-between', marginTop:'30px'}}>
-          <Button variant="danger" className="button" onClick={() => loseNext(creds)}>Lose this round</Button>
-          <Button variant="info" className="button" onClick={() => winNext(creds)}>Win this round</Button>
+          <Button 
+            variant="danger" 
+            className="button" 
+            onClick={loseNext}
+          >Lose this round</Button>
+          <Button 
+            variant="info" 
+            className="button" 
+            onClick={() => {
+              victoryPlayer.current.currentTime = 0
+              victoryPlayer.current.play()
+              winNext()
+            }}
+          >Win this round</Button>
         </div>
       </div>
     </div>

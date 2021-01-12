@@ -16,21 +16,25 @@ function App() {
     }
   }, [round])
 
-  let loseNext = (prevCreds) => {
+  useEffect(() => {
+    if (credits > 9000 && round != 13) setCredits(9000)
+  }, [credits])
+
+  let loseNext = () => {
     setRound(round+1)
     if (lossStreak === 0) {
-      setCredits(prevCreds+1900)
+      setCredits(credits+1900)
     } else if (lossStreak === 1) {
-      setCredits(prevCreds+2400)
+      setCredits(credits+2400)
     } else if (lossStreak >= 2) {
-      setCredits(prevCreds+2900)
+      setCredits(credits+2900)
     }
     setLossStreak(lossStreak+1)
   }
 
-  let winNext = (prevCreds) => {
+  let winNext = () => {
     setRound(round+1)
-    setCredits(prevCreds+3000)
+    setCredits(credits+3000)
     setLossStreak(0)
   }
 
@@ -64,6 +68,7 @@ function App() {
           playerCreds={credits}
           playerItems={items}
           onTransact={onTransact}
+          updateCreds={creds => setCredits(creds)}
           loseNext={loseNext}
           winNext={winNext}
         />
