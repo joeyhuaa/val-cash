@@ -62,3 +62,18 @@ body{
 #kill-sound-player{
   display:none;
 }
+
+@media (max-width: 1000px) {
+  .title{
+    font-size: 16px;
+  }
+  .subtitle{
+    font-size: 14px;
+  }
+  .sec-title{
+    font-size: 13px;
+  }
+  .buy-item, .buy-item-selected{
+    font-size: 12px;
+  }
+}

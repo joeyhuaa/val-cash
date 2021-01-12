@@ -99,10 +99,10 @@ export default function View({
         <source src={killSound} type='audio/mpeg' />
       </audio>
 
-      <h1>Round {round}</h1>
-      <h2>You have {creds} credits to spend.</h2>
+      <h1 className='title'>Round {round}</h1>
+      <h2 className='subtitle'>You have {creds} credits to spend.</h2>
       <div style={{display:'flex', position:'relative', marginTop:'50px'}}>
-        <h3>Your kills:</h3>
+        <h3 className='sec-title'>Your kills:</h3>
         {Array(kills).fill('kill').map((_,i) => 
           <img 
             src={kill_icon} 
@@ -119,7 +119,7 @@ export default function View({
       {kills < 5 && <Button className="button" onClick={addKill} style={{marginRight:'10px'}}>Add Kill</Button>}
       {kills > 0 && <Button className="button" onClick={removeKill}>Remove Kill</Button>}
       <div style={{marginTop:'50px'}}>
-        <h3>Buy:</h3>
+        <h3 className='sec-title'>Buy:</h3>
         <BuyMenu
           onTransact={onTransact}
         />
