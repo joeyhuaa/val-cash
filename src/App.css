@@ -29,17 +29,23 @@ body{
 }
 
 #view{
-  width:750px;
+  width:800px;
   margin:auto;
   padding:40px;
   border-radius: 10px;
   background-color: rgba(0,0,0, 0.65);
 }
 
+.kill-death-section{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 35px;
+}
+
 .kill-section{
   display: flex;
+  flex-direction: column;
   position: relative;
-  margin-top: 50px;
 }
 
 .buy-section{
@@ -73,6 +79,20 @@ body{
   display:none;
 }
 
+#kill-container {
+  display:flex;
+  position: absolute;
+  left: 180px;
+  top: -20px
+}
+.kill-icon {
+  height:60px;
+}
+
+#death-section {
+  width: 200px;
+}
+
 @media (max-width: 1400px) {
   #main-body{
     padding-top: 3%;
@@ -86,15 +106,26 @@ body{
   .sec-title{
     font-size: 15px;
   }
-  .kill-section, .buy-section{
+  .button{
+    font-size: 9px;
+    color:black;
+    padding:20px;
+  }
+  .kill-death-section, .buy-section{
     margin-top: 25px;
   }
   .buy-item, .buy-item-selected{
     font-size: 12px;
   }
+  #kill-container{
+    left:100px;
+  }
+  .kill-icon{
+    height:45px;
+  }
 }
 
-@media (max-width: 1000px) {
+/* @media (max-width: 1000px) {
   .title{
     font-size: 16px;
   }
@@ -107,4 +138,4 @@ body{
   .buy-item, .buy-item-selected{
     font-size: 12px;
   }
-}
+} */

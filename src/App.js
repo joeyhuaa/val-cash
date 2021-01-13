@@ -62,6 +62,10 @@ function App() {
     }
   }
 
+  let onDeath = () => {
+    setItems(['classic'])
+  }
+
   return (
     <div>
       <div id="bg-image"></div>
@@ -75,6 +79,7 @@ function App() {
           updateCreds={creds => setCredits(creds)}
           loseNext={loseNext}
           winNext={winNext}
+          onDeath={onDeath}
         />
       </div>
     </div>

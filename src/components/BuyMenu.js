@@ -91,6 +91,7 @@ export default function BuyMenu({
       {Object.entries(menu).map(item => 
         <MenuItem 
           className={'buy-item'}
+          key={`${item[0]}`}
           name={item[0]}
           price={item[1]}
           onTransact={() => onTransact(item)}

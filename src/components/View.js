@@ -23,10 +23,12 @@ export default function View({
   loseNext,
   winNext,
   onTransact,
-  updateCreds
+  updateCreds,
+  onDeath
 }) {
-  let [kills, setKills] = useState(0);
+  let [kills, setKills] = useState(0)
   let [killSound, setKillSound] = useState(kill_1)
+  let [isPlayerDead, setIsPlayerDead] = useState(false)
 
   let killSoundPlayer = useRef(null)
   let victoryPlayer = useRef(null)
@@ -37,7 +39,12 @@ export default function View({
 
   useEffect(() => {
     setKills(0)
+    setIsPlayerDead(false)
   }, [round])
+
+  useEffect(() => {
+    if (isPlayerDead) onDeath()
+  }, [isPlayerDead])
 
   let addKill = () => {
     killSoundPlayer.current.currentTime = 0
@@ -65,25 +72,37 @@ export default function View({
       <h1 className='title' style={{float:'right'}}>{score.playerTeam}-{score.enemyTeam}</h1>
       <h1 className='title'>Round {round}</h1>
       <h2 className='subtitle'>You have {playerCreds} credits to spend.</h2>
-      <div className='kill-section'>
-        <h3 className='sec-title'>Your kills:</h3>
-        {Array(kills).fill('kill').map((_,i) => 
-          <img 
-            src={kill_icon} 
-            key={`kill-${i}`} alt='kill' 
-            style={{
-              height:60,
-              position:'absolute',
-              left:i*70+180,
-              top:-20
-            }} 
-          />
-        )}
+
+      <div className='kill-death-section'>
+        <div className='kill-section'>
+          <h3 className='sec-title'>Your kills:</h3>
+          <div id='kill-container'>
+            {Array(kills).fill('kill').map((_,i) => 
+              <img 
+                src={kill_icon} 
+                className='kill-icon'
+                key={`kill-${i}`} 
+                alt='kill' 
+              />
+            )}
+          </div>
+          <div style={{marginTop:'9px'}}>
+            {kills < 5 && 
+              <Button className="button" onClick={addKill} style={{marginRight:'10px'}}>Add Kill</Button>
+            }
+            {kills > 0 && <Button className="button" onClick={removeKill}>Remove Kill</Button>}
+          </div>
+        </div>
+
+        {round > 1 && 
+          <div id='death-section'>
+            <h3 className='sec-title'>Did you die last round?</h3>
+            <input type='checkbox' checked={isPlayerDead} onChange={() => setIsPlayerDead(!isPlayerDead)} />
+            <label style={{marginLeft:'5px'}}>Yes</label>
+          </div>
+        }
       </div>
-      {kills < 5 && 
-        <Button className="button" onClick={addKill} style={{marginRight:'10px'}}>Add Kill</Button>
-      }
-      {kills > 0 && <Button className="button" onClick={removeKill}>Remove Kill</Button>}
+
       <div className='buy-section'>
         <h3 className='sec-title'>Buy:</h3>
         <BuyMenu
