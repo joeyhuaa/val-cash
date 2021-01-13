@@ -4,6 +4,7 @@ import View from "./components/View"
 
 function App() {
   let [round, setRound] = useState(1)
+  let [score, setScore] = useState({playerTeam: 0, enemyTeam: 0})
   let [credits, setCredits] = useState(800)
   let [items, setItems] = useState(['classic'])
   let [lossStreak, setLossStreak] = useState(0)
@@ -17,11 +18,10 @@ function App() {
   }, [round])
 
   useEffect(() => {
-    if (credits > 9000 && round != 13) setCredits(9000)
-  }, [credits])
+    if (credits > 9000 && round !== 13) setCredits(9000)
+  }, [credits, round])
 
   let loseNext = () => {
-    setRound(round+1)
     if (lossStreak === 0) {
       setCredits(credits+1900)
     } else if (lossStreak === 1) {
@@ -29,13 +29,16 @@ function App() {
     } else if (lossStreak >= 2) {
       setCredits(credits+2900)
     }
+    setRound(round+1)
     setLossStreak(lossStreak+1)
+    setScore({...score, enemyTeam: score.enemyTeam+1})
   }
 
   let winNext = () => {
     setRound(round+1)
     setCredits(credits+3000)
     setLossStreak(0)
+    setScore({...score, playerTeam: score.playerTeam+1})
   }
 
   let onTransact = (item) => {
@@ -65,6 +68,7 @@ function App() {
       <div id="main-body">
         <View
           round={round}
+          score={score}
           playerCreds={credits}
           playerItems={items}
           onTransact={onTransact}

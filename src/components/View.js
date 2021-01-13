@@ -1,4 +1,4 @@
-import React,{useState, useEffect, useRef} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import {Button} from "react-bootstrap"
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -10,12 +10,14 @@ import kill_3 from '../assets/3rdkill.mp3'
 import kill_4 from '../assets/4thkill.mp3'
 import ace from '../assets/ace.mp3'
 import victorySound from '../assets/Valorant Sounds/Voice Lines/Announcer/victory.mp3'
+
 import kill_icon from '../assets/kill-icon.png'
 
 let killSounds = [kill_1, kill_2, kill_3, kill_4, ace]
 
 export default function View({
   round,
+  score,
   playerCreds,
   playerItems,
   loseNext,
@@ -60,6 +62,7 @@ export default function View({
         <source src={victorySound} type='audio/mpeg' />
       </audio>
 
+      <h1 className='title' style={{float:'right'}}>{score.playerTeam}-{score.enemyTeam}</h1>
       <h1 className='title'>Round {round}</h1>
       <h2 className='subtitle'>You have {playerCreds} credits to spend.</h2>
       <div className='kill-section'>
