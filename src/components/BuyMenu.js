@@ -16,9 +16,10 @@ import vandalSound from '../assets/Valorant Sounds/Weapons/Rifles/vandalTap.mp3'
 import marshalSound from '../assets/Valorant Sounds/Weapons/Snipers/marshalTap.mp3'
 import opSound from '../assets/Valorant Sounds/Weapons/Snipers/operatorTap.mp3'
 import aresSound from '../assets/Valorant Sounds/Weapons/LMGs/aresTap.mp3'
+import odinSound from '../assets/Valorant Sounds/Weapons/LMGs/odinSpray.mp3'
 
 let sounds = [shortySound,frenzySound,ghostSound,sheriffSound,stingerSound,spectreSound,buckySound,
-judgeSound,bulldogSound,guardianSound,phantomSound,vandalSound,marshalSound,opSound,aresSound]
+judgeSound,bulldogSound,guardianSound,phantomSound,vandalSound,marshalSound,opSound,aresSound,odinSound]
 
 function MenuItem({className, name, price, onTransact, playSound, isSelected}) {
   let [selected, setSelected] = useState(isSelected)
