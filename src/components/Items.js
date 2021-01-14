@@ -1,4 +1,4 @@
-export const items = {
+export const menuItems = {
   'classic':{
     price:0, type:'pistol'
   },

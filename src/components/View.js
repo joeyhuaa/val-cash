@@ -69,9 +69,9 @@ export default function View({
         <source src={victorySound} type='audio/mpeg' />
       </audio>
 
-      <h1 className='title' style={{float:'right'}}>{score.playerTeam}-{score.enemyTeam}</h1>
+      <h1 className='title score'>{score.playerTeam}-{score.enemyTeam}</h1>
       <h1 className='title'>Round {round}</h1>
-      <h2 className='subtitle'>You have {playerCreds} credits to spend.</h2>
+      <h2 className='subtitle'>You have <h2 className='credits subtitle'>{playerCreds}</h2> credits to spend.</h2>
 
       <div className='kill-death-section'>
         <div className='kill-section'>

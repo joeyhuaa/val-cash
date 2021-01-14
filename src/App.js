@@ -1,6 +1,7 @@
 import './App.css';
 import React,{useState, useEffect} from 'react'
 import View from "./components/View"
+import {menuItems} from './components/Items'
 
 function App() {
   let [round, setRound] = useState(1)
@@ -41,17 +42,33 @@ function App() {
     setScore({...score, playerTeam: score.playerTeam+1})
   }
 
-  let onTransact = (item) => {
-    let name = item[0]
-    let price = item[1]
+  let onTransact = (newItem) => {
+    let name = newItem[0]
+    let price = newItem[1].price
+    let type = newItem[1].type
+
     if (!items.includes(name)) {
-      if (credits >= price) {
-        setCredits(credits-price)
-        setItems([...items, name])
-        return 1
+      let duplicateTypeItem = items.find(item => menuItems[item].type === type)
+      if (duplicateTypeItem) {
+        if (credits + menuItems[duplicateTypeItem].price >= price) {
+          let newItems = items
+          newItems[newItems.indexOf(duplicateTypeItem)] = name
+          setItems(newItems)
+          setCredits(credits+menuItems[duplicateTypeItem].price-price) // first sell duplicateTypeItem then buy the new item
+          return 1
+        } else {
+          alert("You need more credits!")
+          return 0
+        }
       } else {
-        alert("You need more credits!")
-        return 0
+        if (credits >= price) {
+          setItems([...items, name])
+          setCredits(credits-price)
+          return 1
+        } else {
+          alert("You need more credits!")
+          return 0
+        }
       }
     } else {
       setCredits(credits+price)

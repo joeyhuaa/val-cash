@@ -93,6 +93,16 @@ body{
   width: 200px;
 }
 
+.credits {
+  color: yellow;
+  display: inline;
+}
+
+.score {
+  float: right;
+  color:turquoise;
+}
+
 @media (max-width: 1400px) {
   #main-body{
     padding-top: 3%;
